@@ -1,6 +1,7 @@
 package com.splitbill.splitbillapp.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,23 +18,23 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/customers/{id}")
-    public Customer getCustomer(@PathVariable String id){
+    ResponseEntity<Customer>getCustomer(@PathVariable String id){
         return customerService.getCustomer(id);
     }
 
     @PostMapping(value = "/customers")
-    public void addCustomer(@RequestBody Customer newCustomer){
-        customerService.addCustomer(newCustomer);
+    ResponseEntity<String>addCustomer(@RequestBody Customer newCustomer){
+        return customerService.addCustomer(newCustomer);
     }
 
     @PutMapping(value = "/customers/{id}")
-    public void updateCustomer(@RequestBody Customer updatedCustomer, String id){
-        customerService.updateCustomer(updatedCustomer,id);
+    ResponseEntity<String> updateCustomer(@RequestBody Customer updatedCustomer,@PathVariable String id){
+        return customerService.updateCustomer(updatedCustomer,id);
     }
 
     @DeleteMapping(value = "/customers/{id}")
-    public void deleteCustomer(@PathVariable String id){
-        customerService.deleteCustomer(id);
+    ResponseEntity<String> deleteCustomer(@PathVariable String id){
+        return customerService.deleteCustomer(id);
     }
 }
 

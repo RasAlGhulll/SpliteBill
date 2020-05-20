@@ -35,7 +35,7 @@ public class TransactionService {
 
     ResponseEntity<String>addTransaction(Transaction newTransaction){
         if(!customerRepository.existsById(newTransaction.getSenderId()) || !customerRepository.existsById(newTransaction.getReceiverId())){
-            return new ResponseEntity<>("Invalid Request",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid Request",HttpStatus.NOT_FOUND);
         }
         try{
             transactionRepository.save(newTransaction);
@@ -47,8 +47,19 @@ public class TransactionService {
     }
 
 
-    public void updateTransaction(Transaction updatedTransaction,Long id){
-        transactionRepository.save(updatedTransaction);
+    ResponseEntity<String>updateTransaction(Transaction updatedTransaction,Long id){
+        if(!transactionRepository.existsById(id)){
+            return new ResponseEntity<>("Invalid transaction id",HttpStatus.NOT_FOUND);
+        }
+
+        try{
+            updatedTransaction.setId(id);
+            transactionRepository.save(updatedTransaction);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Error",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("transaction updated",HttpStatus.ACCEPTED);
     }
 
     ResponseEntity<String> deleteTranscation(Long id){

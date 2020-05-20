@@ -29,8 +29,8 @@ public class TransactionController {
     }
 
     @PutMapping(value = "/transcation/{id}")
-    public void updateTranscation(@RequestBody Transaction updatedTranscation, Long id){
-        transactionService.updateTransaction(updatedTranscation,id);
+    ResponseEntity<String> updateTranscation(@RequestBody Transaction updatedTranscation,@PathVariable Long id){
+        return transactionService.updateTransaction(updatedTranscation,id);
     }
 
     @DeleteMapping(value = "/transcation/{id}")

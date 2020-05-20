@@ -1,5 +1,8 @@
 package com.splitbill.splitbillapp.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +17,7 @@ public class Customer {
     @NotNull
     private String name;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     private String password;
 
