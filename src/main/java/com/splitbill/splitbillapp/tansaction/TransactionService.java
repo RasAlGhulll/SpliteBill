@@ -62,7 +62,7 @@ public class TransactionService {
         return new ResponseEntity<>("transaction updated",HttpStatus.ACCEPTED);
     }
 
-    ResponseEntity<String> deleteTranscation(Long id){
+    ResponseEntity<String> deleteTransaction(Long id){
         try{
             transactionRepository.deleteById(id);
         }
@@ -70,5 +70,31 @@ public class TransactionService {
             return new ResponseEntity<>("Invalid Request",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Deleted from the database",HttpStatus.OK);
+    }
+
+    ResponseEntity<List<Transaction>> getSplitTransaction(String senderId,String receiverId){
+        if(!customerRepository.existsById(senderId) || !customerRepository.existsById(receiverId)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        try{
+            return new ResponseEntity<>(transactionRepository.getSplitBills(senderId,receiverId),HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    ResponseEntity<String> settleUp(List<Long> deleteTransactions){
+        try{
+            deleteTransactions.forEach((transaction) ->{
+                if(transactionRepository.existsById(transaction))
+                    transactionRepository.deleteById(transaction);
+            });
+            return new ResponseEntity<>("all expenses are settled!",HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
