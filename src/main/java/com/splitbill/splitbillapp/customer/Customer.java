@@ -2,11 +2,15 @@ package com.splitbill.splitbillapp.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.splitbill.splitbillapp.team.Team;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -21,15 +25,18 @@ public class Customer {
     @NotNull
     private String password;
 
+    @ManyToMany(mappedBy = "customers")
+    private List<Team> teams = new ArrayList<>();
+
     public Customer() {
     }
 
-    public Customer(String id, String name, String password) {
+    public Customer(String id, @NotNull String name, @NotNull String password, List<Team> teams) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.teams = teams;
     }
-
 
     public String getId() {
         return id;
@@ -53,5 +60,13 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }
