@@ -3,10 +3,12 @@ package com.splitbill.splitbillapp.customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.splitbill.splitbillapp.team.Team;
+import com.splitbill.splitbillapp.teamTransaction.TeamTransaction;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -28,15 +30,8 @@ public class Customer {
     @ManyToMany(mappedBy = "customers")
     private List<Team> teams = new ArrayList<>();
 
-    public Customer() {
-    }
-
-    public Customer(String id, @NotNull String name, @NotNull String password, List<Team> teams) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.teams = teams;
-    }
+    @OneToMany(mappedBy = "customer")
+    private List<TeamTransaction> teamTransactions;
 
     public String getId() {
         return id;
@@ -48,6 +43,17 @@ public class Customer {
 
     public String getName() {
         return name;
+    }
+
+    public Customer() {
+    }
+
+    public Customer(String id, @NotNull String name, @NotNull String password, List<Team> teams, List<TeamTransaction> teamTransactions) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.teams = teams;
+        this.teamTransactions = teamTransactions;
     }
 
     public void setName(String name) {
@@ -69,4 +75,15 @@ public class Customer {
     public void setTeams(List<Team> teams) {
         this.teams = teams;
     }
+
+    public List<TeamTransaction> getTeamTransactions() {
+        return teamTransactions;
+    }
+
+    public void setTeamTransactions(List<TeamTransaction> teamTransactions) {
+        this.teamTransactions = teamTransactions;
+    }
+
+
+
 }

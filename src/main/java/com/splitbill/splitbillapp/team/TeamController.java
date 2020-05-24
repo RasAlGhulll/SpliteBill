@@ -12,18 +12,24 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping(value = "/teams/{id}")
+    @GetMapping(value = "/all-teams/user={userId}")
     ResponseEntity<List<Team> > getAllTeams(@PathVariable String userId){
         return teamService.getAllTeams(userId);
     }
 
-    @PostMapping(value = "/teams/{id}")
+    @PostMapping(value = "/create-teams/user={userId}")
     ResponseEntity<Long> addTeam(@RequestBody Team newTeam, @PathVariable String userId){
         return teamService.addTeam(newTeam, userId);
     }
 
-    @PostMapping(value = "/team/{id}")
+    @PutMapping(value = "/add-members/team={teamId}")
     ResponseEntity<String> addTeamMembers(@PathVariable Long teamId,@RequestBody List<String> friends){
         return teamService.addTeamMembers(teamId,friends);
     }
+
+//    @GetMapping(value = "/team/{teamId}")
+//    ResponseEntity<String> getTeamTransactions(@PathVariable Long teamId){
+//        return teamService.getTeamTransactions(teamId);
+//    }
+
 }

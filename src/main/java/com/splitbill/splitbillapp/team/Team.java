@@ -1,6 +1,7 @@
 package com.splitbill.splitbillapp.team;
 
 import com.splitbill.splitbillapp.customer.Customer;
+import com.splitbill.splitbillapp.teamTransaction.TeamTransaction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,14 +23,18 @@ public class Team {
     @ManyToMany
     private List<Customer> customers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "team")
+    private List<TeamTransaction> teamTransactions;
+
     public Team() {
     }
 
-    public Team(Long id, @NotNull String name, String description, List<Customer> customers) {
+    public Team(Long id, @NotNull String name, String description, List<Customer> customers, List<TeamTransaction> teamTransactions) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.customers = customers;
+        this.teamTransactions = teamTransactions;
     }
 
     public Long getId() {
@@ -62,5 +67,13 @@ public class Team {
 
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
+    }
+
+    public List<TeamTransaction> getTeamTransactions() {
+        return teamTransactions;
+    }
+
+    public void setTeamTransactions(List<TeamTransaction> teamTransactions) {
+        this.teamTransactions = teamTransactions;
     }
 }

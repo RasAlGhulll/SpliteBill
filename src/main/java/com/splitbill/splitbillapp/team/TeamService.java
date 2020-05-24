@@ -23,7 +23,7 @@ public class TeamService {
     private CustomerRepository customerRepository;
 
     ResponseEntity<List<Team> > getAllTeams(String userId){
-        return new ResponseEntity<>(teamRepository.getAllByCustomersEquals(userId),HttpStatus.OK);
+        return new ResponseEntity<>(customerRepository.findById(userId).get().getTeams(),HttpStatus.OK);
     }
 
     ResponseEntity<Long> addTeam(Team newTeam, String userId){
@@ -60,4 +60,8 @@ public class TeamService {
             return new ResponseEntity<>("Something went wrong!",HttpStatus.BAD_REQUEST);
         }
     }
+
+//    ResponseEntity<String> getTeamTransactions(Long teamId){
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
 }

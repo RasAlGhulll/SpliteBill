@@ -1,12 +1,11 @@
 package com.splitbill.splitbillapp.tansaction;
 
+import com.splitbill.splitbillapp.teamTransaction.TeamTransaction;
 import org.hibernate.annotations.GeneratorType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Transaction {
@@ -25,15 +24,19 @@ public class Transaction {
     @NotNull
     private String receiverId;
 
+    @OneToMany(mappedBy = "transaction")
+    private List<TeamTransaction> teamTransactions;
+
     public Transaction() {
     }
 
-    public Transaction(Long id, Long amount, String description, String senderId, String receiverId) {
+    public Transaction(Long id, @NotNull Long amount, String description, @NotNull String senderId, @NotNull String receiverId, List<TeamTransaction> teamTransactions) {
         this.id = id;
         this.amount = amount;
         this.description = description;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.teamTransactions = teamTransactions;
     }
 
     public Long getId() {
@@ -74,5 +77,13 @@ public class Transaction {
 
     public void setReceiverId(String receiverId) {
         this.receiverId = receiverId;
+    }
+
+    public List<TeamTransaction> getTeamTransactions() {
+        return teamTransactions;
+    }
+
+    public void setTeamTransactions(List<TeamTransaction> teamTransactions) {
+        this.teamTransactions = teamTransactions;
     }
 }
