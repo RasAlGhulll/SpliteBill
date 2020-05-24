@@ -1,5 +1,6 @@
 package com.splitbill.splitbillapp.team;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.splitbill.splitbillapp.customer.Customer;
 import com.splitbill.splitbillapp.teamTransaction.TeamTransaction;
 
@@ -20,6 +21,7 @@ public class Team {
 
     private String description;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany
     private List<Customer> customers = new ArrayList<>();
 

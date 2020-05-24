@@ -27,9 +27,9 @@ public class TeamController {
         return teamService.addTeamMembers(teamId,friends);
     }
 
-//    @GetMapping(value = "/team/{teamId}")
-//    ResponseEntity<String> getTeamTransactions(@PathVariable Long teamId){
-//        return teamService.getTeamTransactions(teamId);
-//    }
+    @GetMapping(value = "/get-team/team={teamId}")
+    ResponseEntity<Team> getTeamTransactions(@PathVariable Long teamId){
+        return teamService.getTeamTransactions(teamId);
+    }
 
 }

@@ -61,7 +61,9 @@ public class TeamService {
         }
     }
 
-//    ResponseEntity<String> getTeamTransactions(Long teamId){
-//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
+    ResponseEntity<Team> getTeamTransactions(Long teamId){
+        if(!teamRepository.existsById(teamId))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(teamRepository.findById(teamId).get(),HttpStatus.OK);
+    }
 }
