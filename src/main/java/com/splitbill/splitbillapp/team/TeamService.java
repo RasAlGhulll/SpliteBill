@@ -23,6 +23,8 @@ public class TeamService {
     private CustomerRepository customerRepository;
 
     ResponseEntity<List<Team> > getAllTeams(String userId){
+        if(!customerRepository.existsById(userId))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(customerRepository.findById(userId).get().getTeams(),HttpStatus.OK);
     }
 
@@ -61,9 +63,9 @@ public class TeamService {
         }
     }
 
-    ResponseEntity<Team> getTeamTransactions(Long teamId){
+    ResponseEntity<List> getTeamTransactions(Long teamId){
         if(!teamRepository.existsById(teamId))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(teamRepository.findById(teamId).get(),HttpStatus.OK);
+        return new ResponseEntity<>(teamRepository.findById(teamId).get().getTeamTransactions(),HttpStatus.OK);
     }
 }

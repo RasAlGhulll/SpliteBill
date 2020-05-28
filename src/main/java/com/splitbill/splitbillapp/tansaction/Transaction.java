@@ -1,11 +1,11 @@
 package com.splitbill.splitbillapp.tansaction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.splitbill.splitbillapp.teamTransaction.TeamTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -31,6 +31,7 @@ public class Transaction {
     @NotNull
     private String receiverId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "transaction")
     private List<TeamTransaction> teamTransactions;
 }

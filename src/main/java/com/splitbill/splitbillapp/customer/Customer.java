@@ -1,5 +1,8 @@
 package com.splitbill.splitbillapp.customer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.splitbill.splitbillapp.team.Team;
 import com.splitbill.splitbillapp.teamTransaction.TeamTransaction;
@@ -33,9 +36,11 @@ public class Customer {
     @NotNull
     private String password;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "customers")
     private List<Team> teams = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<TeamTransaction> teamTransactions;
 }
