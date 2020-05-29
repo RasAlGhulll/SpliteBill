@@ -32,6 +32,6 @@ public class Transaction {
     private String receiverId;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "transaction")
+    @OneToMany(mappedBy = "teamTransactionId.transaction")
     private List<TeamTransaction> teamTransactions;
 }

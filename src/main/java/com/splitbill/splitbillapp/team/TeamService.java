@@ -62,10 +62,4 @@ public class TeamService {
             return new ResponseEntity<>("Something went wrong!",HttpStatus.BAD_REQUEST);
         }
     }
-
-    ResponseEntity<List> getTeamTransactions(Long teamId){
-        if(!teamRepository.existsById(teamId))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(teamRepository.findById(teamId).get().getTeamTransactions(),HttpStatus.OK);
-    }
 }

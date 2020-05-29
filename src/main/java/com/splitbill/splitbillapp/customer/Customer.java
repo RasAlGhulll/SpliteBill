@@ -41,6 +41,6 @@ public class Customer {
     private List<Team> teams = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "teamTransactionId.customer")
     private List<TeamTransaction> teamTransactions;
 }
